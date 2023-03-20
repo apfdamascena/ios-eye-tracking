@@ -19,7 +19,7 @@ public class EyeTracking: NSObject {
     /// Defaults to `false` to prevent too much noise in Xcode's console.
     public var loggingEnabled = false
 
-    public var update=((CGRect) -> Void)?
+    public var update: ((CGRect) -> Void)?
 
     // MARK: - Internal Properties
 
