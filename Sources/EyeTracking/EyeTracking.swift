@@ -19,6 +19,8 @@ public class EyeTracking: NSObject {
     /// Defaults to `false` to prevent too much noise in Xcode's console.
     public var loggingEnabled = false
 
+    public var update=((CGRect) -> Void)?
+
     // MARK: - Internal Properties
 
     /// Initialize `ARKit`'s `ARSession` when the class is created. This is the most lightweight
@@ -543,6 +545,8 @@ extension EyeTracking {
             width: pointer.frame.width,
             height: pointer.frame.height
         )
+
+        update?(pointer.frame)
     }
 }
 
