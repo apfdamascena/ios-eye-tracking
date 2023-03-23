@@ -162,8 +162,8 @@ extension EyeTracking: ARSessionDelegate {
     public func session(_ session: ARSession, didUpdate frame: ARFrame) {
         guard let anchor = frame.anchors.first as? ARFaceAnchor else { return }
 
-        readMyFace(anchor)
-        
+        readMyFace(anchor: anchor)
+
         guard let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation else { return }
 
         // Get distance between camera and achor
