@@ -21,6 +21,10 @@ public class EyeTracking: NSObject {
 
     public var update: ((CGRect) -> Void)?
 
+    public var blinkedEyes: (() -> ())?
+
+    public var blinkedEyesTimes: [Double] = []
+
     // MARK: - Internal Properties
 
     /// Initialize `ARKit`'s `ARSession` when the class is created. This is the most lightweight
@@ -157,6 +161,9 @@ extension EyeTracking {
 extension EyeTracking: ARSessionDelegate {
     public func session(_ session: ARSession, didUpdate frame: ARFrame) {
         guard let anchor = frame.anchors.first as? ARFaceAnchor else { return }
+
+        readMyFace(anchor)
+        
         guard let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation else { return }
 
         // Get distance between camera and achor
@@ -251,6 +258,24 @@ extension EyeTracking: ARSessionDelegate {
 
         updatePointer(with: screenPoint)
     }
+
+    func readMyFace(anchor: ARFaceAnchor) {
+        let blinkedEyesLeft = anchor.blendShapes[.eyeBlinkLeft]
+        
+        if blinkedEyesLeft?.decimalValue ?? 0.0 > 0.9 {
+            blinkedEyesTimes.append(1.0)
+        }
+        
+        if blinkedEyesTimes.count > 20 {
+            
+            DispatchQueue.main.async {
+                self.blinkedEyesTimes.removeAll()
+                self.blinkedEyes?()
+            }
+        }
+    }
+
+
 }
 
 // MARK: - ARCamera TrackingState
