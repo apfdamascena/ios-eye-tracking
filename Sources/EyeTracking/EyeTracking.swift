@@ -29,7 +29,7 @@ public class EyeTracking: NSObject {
 
     /// Initialize `ARKit`'s `ARSession` when the class is created. This is the most lightweight
     /// method for accessing all facial tracking features.
-    let arSession = ARSession()
+    public var arSession = ARSession()
 
     /// A view that contains any output for visualizations.
     lazy var visualizationView: UIView = {
