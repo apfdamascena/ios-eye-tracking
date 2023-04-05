@@ -69,7 +69,7 @@ public class EyeTracking: NSObject {
     /// like any other `UIView`.
     ///
     public lazy var pointer: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        let view = UIView(frame: CGRect(x: UIScreen.main.bounds.size.width/2, y: UIScreen.main.bounds.size.height/2, width: 30, height: 30))
         view.layer.cornerRadius = view.frame.size.width / 2
         view.layer.cornerCurve = .continuous
         view.backgroundColor = .blue
